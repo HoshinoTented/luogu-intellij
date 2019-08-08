@@ -26,7 +26,7 @@ jobs:
 
       - run:
           name: Assemble
-          command: ./gradlew assemble --info --stacktrace --warning-mode=all --no-daemon
+          command: ./gradlew shadowJar --info --stacktrace --warning-mode=all --no-daemon
 
       - store_artifacts:
           path: 'build/libs'
