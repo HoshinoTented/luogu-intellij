@@ -11,7 +11,7 @@ val isCI = System.getenv("CI").isNullOrBlank().not()
 fun DependencyHandler.luoguapi(module: String, version: String) = "com.github.HoshinoTented.LuoGuAPI:$module:$version"
 
 group = "org.hoshino9"
-version = "0.0.1"
+version = "0.0.2"
 
 sourceSets {
 	main.configure {

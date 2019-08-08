@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>luogu-intellij</id>
 	<name>luogu-intellij</name>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<!--一些开发者信息了-->
 	<vendor email="limbolrain@gmail.com"
 			url="">Hoshino Tented
