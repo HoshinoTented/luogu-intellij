@@ -25,12 +25,27 @@
 	</extensions>
 
 	<actions>
+		<group id="org.hoshino9.luogu.intellij.actions.Actions"
+			   text="Luogu"
+			   popup="true">
+			<add-to-group group-id="ToolsMenu"
+						  anchor="last"/>
+		</group>
+
 		<action id="org.hoshino9.luogu.intellij.actions.LoginAction"
 				class="org.hoshino9.luogu.intellij.actions.LoginAction"
 				text="Log in to Luogu"
 				description="Log in to Luogu">
-			<add-to-group group-id="ToolsMenu"
-						  anchor="last"/>
+			<add-to-group group-id="org.hoshino9.luogu.intellij.actions.Actions"
+						  anchor="first"/>
+		</action>
+
+		<action id="org.hoshino9.luogu.intellij.actions.SubmitAction"
+				class="org.hoshino9.luogu.intellij.actions.SubmitAction"
+				text="Submit Code"
+				description="Submit code to specified problem">
+			<add-to-group group-id="org.hoshino9.luogu.intellij.actions.Actions"
+						  anchor="first"/>
 		</action>
 	</actions>
 

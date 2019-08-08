@@ -13,7 +13,7 @@
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text resource-bundle="org/hoshino9/luogu/intellij/luogu-bundle" key="luogu.account"/>
+          <text resource-bundle="org/hoshino9/luogu/intellij/luogu-bundle" key="luogu.login.account"/>
         </properties>
       </component>
       <component id="8db1d" class="javax.swing.JTextField" binding="account">
@@ -29,7 +29,7 @@
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text resource-bundle="org/hoshino9/luogu/intellij/luogu-bundle" key="luogu.password"/>
+          <text resource-bundle="org/hoshino9/luogu/intellij/luogu-bundle" key="luogu.login.password"/>
         </properties>
       </component>
       <component id="f25f" class="javax.swing.JPasswordField" binding="password">
@@ -78,7 +78,7 @@
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text resource-bundle="org/hoshino9/luogu/intellij/luogu-bundle" key="luogu.verifyCode"/>
+          <text resource-bundle="org/hoshino9/luogu/intellij/luogu-bundle" key="luogu.login.verifyCode"/>
         </properties>
       </component>
       <component id="76a20" class="javax.swing.JTextField" binding="verifyCodeInput">

@@ -6,9 +6,9 @@ plugins {
 	kotlin("jvm") version "1.3.41"
 }
 
-val luoguVersion = "adc35b396f"
+val luoguVersion = "4e605d15e6"
 val isCI = System.getenv("CI").isNullOrBlank().not()
-fun DependencyHandlerScope.luoguapi(module: String, version: String) = "com.github.HoshinoTented.LuoGuAPI:$module:$version"
+fun DependencyHandler.luoguapi(module: String, version: String) = "com.github.HoshinoTented.LuoGuAPI:$module:$version"
 
 group = "org.hoshino9"
 version = "0.0.1"
@@ -40,4 +40,5 @@ dependencies {
 	implementation(kotlin("stdlib"))
 	implementation(luoguapi("luogu", luoguVersion))
 	implementation(luoguapi("problem", luoguVersion))
+	implementation(luoguapi("record", luoguVersion))
 }
