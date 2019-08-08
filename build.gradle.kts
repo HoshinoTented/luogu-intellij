@@ -6,7 +6,9 @@ plugins {
 	kotlin("jvm") version "1.3.41"
 }
 
+val luoguVersion = "adc35b396f"
 val isCI = System.getenv("CI").isNullOrBlank().not()
+fun DependencyHandlerScope.luoguapi(module: String, version: String) = "com.github.HoshinoTented.LuoGuAPI:$module:$version"
 
 group = "org.hoshino9"
 version = "0.0.1"
@@ -33,10 +35,9 @@ repositories {
 	maven("https://jitpack.io")
 }
 
-fun DependencyHandlerScope.luoguapi(module: String, version: String) = "com.github.HoshinoTented.LuoGuAPI:$module:$version"
 
 dependencies {
 	implementation(kotlin("stdlib"))
-	implementation(luoguapi("luogu", "2efd9fcbb8"))
-	implementation(luoguapi("problem", "2efd9fcbb8"))
+	implementation(luoguapi("luogu", luoguVersion))
+	implementation(luoguapi("problem", luoguVersion))
 }
