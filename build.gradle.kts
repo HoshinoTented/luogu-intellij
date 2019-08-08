@@ -42,3 +42,11 @@ dependencies {
 	implementation(luoguapi("problem", luoguVersion))
 	implementation(luoguapi("record", luoguVersion))
 }
+
+val dependenciesJar = task<Jar>("dependenciesJar") {
+	from(configurations.getByName("compile").map { if (it.isDirectory) it else zipTree(it) })
+}
+
+artifacts {
+	add("archives", dependenciesJar)
+}
