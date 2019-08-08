@@ -37,10 +37,10 @@ repositories {
 
 
 dependencies {
-	implementation(kotlin("stdlib"))
-	implementation(luoguapi("luogu", luoguVersion))
-	implementation(luoguapi("problem", luoguVersion))
-	implementation(luoguapi("record", luoguVersion))
+	compile(kotlin("stdlib"))
+	compile(luoguapi("luogu", luoguVersion))
+	compile(luoguapi("problem", luoguVersion))
+	compile(luoguapi("record", luoguVersion))
 }
 
 val dependenciesJar = task<Jar>("dependenciesJar") {
