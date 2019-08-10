@@ -7,16 +7,65 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.openapi.vfs.VirtualFile
+import okhttp3.WebSocket
 import org.hoshino9.luogu.IllegalStatusCodeException
+import org.hoshino9.luogu.intellij.actions.ui.RecordUI
 import org.hoshino9.luogu.intellij.actions.ui.SubmitUI
 import org.hoshino9.luogu.intellij.lg
 import org.hoshino9.luogu.intellij.tryIt
+import org.hoshino9.luogu.record.Record
 import org.hoshino9.luogu.record.Solution
 import org.hoshino9.luogu.record.postSolution
 import java.awt.event.ActionEvent
 import javax.swing.ButtonGroup
 import javax.swing.JComponent
 import javax.swing.JOptionPane
+import kotlin.concurrent.thread
+
+class RecordUIImpl(val record: Record) : RecordUI() {
+	private var socket: WebSocket? = null
+
+	init {
+		connect()
+
+		infoText.apply {
+			lineWrap = true
+			isEditable = false
+		}
+
+		title = (LuoguBundle.message("luogu.record.title", record.rid))
+
+		init()
+	}
+
+	private fun connect() {
+		socket = this@RecordUIImpl.record.listen(lg) { socket, msg ->
+			if ("status_push" in msg) updateInfo(msg)
+		}
+	}
+
+	private fun closeSocket() {
+		socket?.close(1000, null)
+	}
+
+	private fun updateInfo(info: String) {
+		this.infoText.text = info
+	}
+
+	override fun doOKAction() {
+		closeSocket()
+		super.doOKAction()
+	}
+
+	override fun doCancelAction() {
+		closeSocket()
+		super.doCancelAction()
+	}
+
+	override fun createCenterPanel(): JComponent? {
+		return mainPanel
+	}
+}
 
 class SubmitUIImpl(val file: VirtualFile, val editor: Editor) : SubmitUI() {
 	companion object {
@@ -88,8 +137,9 @@ class SubmitUIImpl(val file: VirtualFile, val editor: Editor) : SubmitUI() {
 				tryIt(mainPanel) {
 					if (lg.isLogged) {
 						val record = lg.loggedUser.postSolution(Solution(problemId, Solution.Language.values()[language.selectedIndex], editor.document.text))
-						JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.submit.successful", record.rid), LuoguBundle.message("luogu.successful.title"), JOptionPane.INFORMATION_MESSAGE)
 						close(DialogWrapper.OK_EXIT_CODE)
+						JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.submit.successful", record.rid), LuoguBundle.message("luogu.successful.title"), JOptionPane.INFORMATION_MESSAGE)
+						RecordUIImpl(record).show()
 					} else {
 						throw IllegalStatusCodeException(403, "No login")
 					}

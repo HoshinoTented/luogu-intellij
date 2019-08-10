@@ -1,22 +1,9 @@
 <idea-plugin>
-	<id>luogu-intellij</id>
 	<name>luogu-intellij</name>
-	<version>0.0.2</version>
 	<!--一些开发者信息了-->
 	<vendor email="limbolrain@gmail.com"
 			url="">Hoshino Tented
 	</vendor>
-
-	<description><![CDATA[
-      A IntelliJ Plugin for Luogu
-	  It can be used to submit your code
-    ]]></description>
-
-	<change-notes><![CDATA[
-	  * 0.0.1
-	    Base function: such as login or submit code
-    ]]>
-	</change-notes>
 
 	<idea-version since-build="192.5728"/>
 

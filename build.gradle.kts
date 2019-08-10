@@ -1,4 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.jetbrains.intellij.tasks.PatchPluginXmlTask
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
 plugins {
@@ -8,12 +9,12 @@ plugins {
 	kotlin("jvm") version "1.3.41"
 }
 
+group = "org.hoshino9"
+version = "0.0.2"
+
 val luoguVersion = "4e605d15e6"
 val isCI = System.getenv("CI").isNullOrBlank().not()
 fun luoguapi(module: String, version: String) = "com.github.HoshinoTented.LuoGuAPI:$module:$version"
-
-group = "org.hoshino9"
-version = "0.0.2"
 
 sourceSets {
 	main.configure {
@@ -45,6 +46,9 @@ dependencies {
 	compile(luoguapi("record", luoguVersion))
 }
 
-(tasks["shadowJar"] as ShadowJar).apply {
-	archiveClassifier.set("all")
+tasks.withType<PatchPluginXmlTask> {
+	changeNotes(file("resources/META-INF/ChangeNotes.html").readText())
+	pluginDescription(file("resources/META-INF/Description.html").readText())
+	version(version)
+	pluginId(project.name)
 }
