@@ -1,8 +1,7 @@
 <idea-plugin>
 	<name>luogu-intellij</name>
-	<!--一些开发者信息了-->
 	<vendor email="limbolrain@gmail.com"
-			url="">Hoshino Tented
+			url="https://github.com/HoshinoTented">Hoshino Tented
 	</vendor>
 
 	<idea-version since-build="192.5728"/>
@@ -33,6 +32,8 @@
 				description="Submit code to specified problem">
 			<add-to-group group-id="org.hoshino9.luogu.intellij.actions.Actions"
 						  anchor="first"/>
+			<keyboard-shortcut first-keystroke="ctrl shift s"
+							   keymap="$default"/>
 		</action>
 	</actions>
 
