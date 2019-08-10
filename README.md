@@ -11,5 +11,10 @@ CircleCI|[![CircleCI](https://circleci.com/gh/HoshinoTented/luogu-intellij.svg?s
 A luogu plugin on intellij platform  
 
 # Function
-- [ ] Base: log in
-- [ ] Problem: Submit code
+- [x] Base: log in
+- [x] Problem: Submit code
+- [x] Listen record information
+- [ ] Better record UI
+
+# Screen shot
+![](screenshot/0.0.3-0.gif)
