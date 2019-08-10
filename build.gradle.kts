@@ -12,7 +12,7 @@ plugins {
 group = "org.hoshino9"
 version = "0.0.2"
 
-val luoguVersion = "4e605d15e6"
+val luoguVersion = "7758edaab7"
 val isCI = System.getenv("CI").isNullOrBlank().not()
 fun luoguapi(module: String, version: String) = "com.github.HoshinoTented.LuoGuAPI:$module:$version"
 
