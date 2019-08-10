@@ -1,5 +1,7 @@
 package org.hoshino9.luogu.intellij.actions
 
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -11,6 +13,7 @@ import okhttp3.WebSocket
 import org.hoshino9.luogu.IllegalStatusCodeException
 import org.hoshino9.luogu.intellij.actions.ui.RecordUI
 import org.hoshino9.luogu.intellij.actions.ui.SubmitUI
+import org.hoshino9.luogu.intellij.gson
 import org.hoshino9.luogu.intellij.lg
 import org.hoshino9.luogu.intellij.tryIt
 import org.hoshino9.luogu.record.Record
@@ -20,6 +23,7 @@ import java.awt.event.ActionEvent
 import javax.swing.ButtonGroup
 import javax.swing.JComponent
 import javax.swing.JOptionPane
+import javax.swing.JScrollPane
 import kotlin.concurrent.thread
 
 class RecordUIImpl(val record: Record) : RecordUI() {
@@ -27,6 +31,11 @@ class RecordUIImpl(val record: Record) : RecordUI() {
 
 	init {
 		connect()
+
+		scrollPane.apply {
+			horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
+			verticalScrollBarPolicy = JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED
+		}
 
 		infoText.apply {
 			lineWrap = true
@@ -49,7 +58,7 @@ class RecordUIImpl(val record: Record) : RecordUI() {
 	}
 
 	private fun updateInfo(info: String) {
-		this.infoText.text = info
+		this.infoText.text = gson.toJson(JsonParser().parse(info))
 	}
 
 	override fun doOKAction() {
@@ -137,8 +146,8 @@ class SubmitUIImpl(val file: VirtualFile, val editor: Editor) : SubmitUI() {
 				tryIt(mainPanel) {
 					if (lg.isLogged) {
 						val record = lg.loggedUser.postSolution(Solution(problemId, Solution.Language.values()[language.selectedIndex], editor.document.text))
-						close(DialogWrapper.OK_EXIT_CODE)
 						JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.submit.successful", record.rid), LuoguBundle.message("luogu.successful.title"), JOptionPane.INFORMATION_MESSAGE)
+						close(DialogWrapper.OK_EXIT_CODE)
 						RecordUIImpl(record).show()
 					} else {
 						throw IllegalStatusCodeException(403, "No login")

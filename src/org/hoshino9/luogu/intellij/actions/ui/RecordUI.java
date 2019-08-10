@@ -7,6 +7,7 @@ import javax.swing.*;
 public abstract class RecordUI extends DialogWrapper {
 	protected JTextArea infoText;
 	protected JPanel mainPanel;
+	protected JScrollPane scrollPane;
 
 	public RecordUI() {
 		super(true);
