@@ -30,7 +30,7 @@ ${editor.document.text}
 					lg.checkLogin()
 
 					val id = lg.loggedUser.postPaste(documentText, makePublic.isSelected)
-					JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.paste.success", id), LuoguBundle.message("luogu.successful.title"), JOptionPane.INFORMATION_MESSAGE)
+					JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.paste.success", id), LuoguBundle.message("luogu.success.title"), JOptionPane.INFORMATION_MESSAGE)
 					close(DialogWrapper.OK_EXIT_CODE)
 				}
 			}

@@ -7,8 +7,6 @@ import com.intellij.openapi.ui.DialogWrapper
 import org.hoshino9.luogu.intellij.actions.ui.LoginUI
 import org.hoshino9.luogu.intellij.lg
 import org.hoshino9.luogu.intellij.tryIt
-import org.hoshino9.luogu.intellij.ui.VerifyCode
-import org.hoshino9.luogu.intellij.ui.VerifyUIImpl
 import org.hoshino9.luogu.intellij.ui.verifyCode
 import java.awt.event.ActionEvent
 import javax.swing.JComponent
@@ -26,7 +24,7 @@ class LoginUIImpl(val project: Project) : LoginUI() {
 
 						val user = lg.loggedUser
 
-						JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.login.loginwith", user.spacePage.username, user.uid), LuoguBundle.message("luogu.successful.title"), JOptionPane.INFORMATION_MESSAGE)
+						JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.login.loginwith", user.spacePage.username, user.uid), LuoguBundle.message("luogu.success.title"), JOptionPane.INFORMATION_MESSAGE)
 						close(DialogWrapper.OK_EXIT_CODE)
 					}
 				}

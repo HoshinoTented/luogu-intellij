@@ -1,25 +1,20 @@
 package org.hoshino9.luogu.intellij.actions
 
-import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
-import com.intellij.openapi.actionSystem.PlatformDataKeys
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.openapi.vfs.VirtualFile
 import okhttp3.WebSocket
-import org.hoshino9.luogu.IllegalStatusCodeException
 import org.hoshino9.luogu.intellij.actions.ui.RecordUI
 import org.hoshino9.luogu.intellij.actions.ui.SubmitUI
 import org.hoshino9.luogu.intellij.checkLogin
 import org.hoshino9.luogu.intellij.gson
 import org.hoshino9.luogu.intellij.lg
 import org.hoshino9.luogu.intellij.tryIt
-import org.hoshino9.luogu.intellij.ui.VerifyUIImpl
-import org.hoshino9.luogu.intellij.ui.verifyCode
 import org.hoshino9.luogu.record.Record
 import org.hoshino9.luogu.record.Solution
 import org.hoshino9.luogu.record.postSolution
@@ -28,7 +23,6 @@ import javax.swing.ButtonGroup
 import javax.swing.JComponent
 import javax.swing.JOptionPane
 import javax.swing.JScrollPane
-import kotlin.concurrent.thread
 
 class RecordUIImpl(val record: Record) : RecordUI() {
 	private var socket: WebSocket? = null
@@ -153,7 +147,7 @@ class SubmitUIImpl(val file: VirtualFile, val editor: Editor, val project: Proje
 					val solution = Solution(problemId, Solution.Language.values()[language.selectedIndex], editor.document.text)
 					val record = lg.loggedUser.postSolution(solution)
 
-					JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.submit.successful", record.rid), LuoguBundle.message("luogu.successful.title"), JOptionPane.INFORMATION_MESSAGE)
+					JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.submit.success", record.rid), LuoguBundle.message("luogu.success.title"), JOptionPane.INFORMATION_MESSAGE)
 
 					close(DialogWrapper.OK_EXIT_CODE)
 					RecordUIImpl(record).show()
