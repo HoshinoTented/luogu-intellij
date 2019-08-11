@@ -12,7 +12,7 @@ plugins {
 group = "org.hoshino9"
 version = "0.0.2"
 
-val luoguVersion = "7758edaab7"
+val luoguVersion = "-SNAPSHOT"
 val isCI = System.getenv("CI").isNullOrBlank().not()
 fun luoguapi(module: String, version: String) = "com.github.HoshinoTented.LuoGuAPI:$module:$version"
 
@@ -44,6 +44,7 @@ dependencies {
 	compile(luoguapi("luogu", luoguVersion))
 	compile(luoguapi("problem", luoguVersion))
 	compile(luoguapi("record", luoguVersion))
+	compile(luoguapi("paste", luoguVersion))
 }
 
 tasks.withType<PatchPluginXmlTask> {

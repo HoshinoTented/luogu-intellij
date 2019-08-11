@@ -23,7 +23,7 @@
 				text="Log in to Luogu"
 				description="Log in to Luogu">
 			<add-to-group group-id="org.hoshino9.luogu.intellij.actions.Actions"
-						  anchor="first"/>
+						  anchor="last"/>
 		</action>
 
 		<action id="org.hoshino9.luogu.intellij.actions.SubmitAction"
@@ -31,9 +31,17 @@
 				text="Submit Code"
 				description="Submit code to specified problem">
 			<add-to-group group-id="org.hoshino9.luogu.intellij.actions.Actions"
-						  anchor="first"/>
+						  anchor="last"/>
 			<keyboard-shortcut first-keystroke="ctrl shift s"
 							   keymap="$default"/>
+		</action>
+
+		<action id="org.hoshino9.luogu.intellij.actions.PasteAction"
+				class="org.hoshino9.luogu.intellij.actions.PasteAction"
+				text="Paste Code"
+				description="Paste code to luogu paste board">
+			<add-to-group group-id="org.hoshino9.luogu.intellij.actions.Actions"
+						  anchor="last"/>
 		</action>
 	</actions>
 

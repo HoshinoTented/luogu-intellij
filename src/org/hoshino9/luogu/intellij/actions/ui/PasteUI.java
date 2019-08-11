@@ -4,12 +4,11 @@ import com.intellij.openapi.ui.DialogWrapper;
 
 import javax.swing.*;
 
-public abstract class LoginUI extends DialogWrapper {
-	protected JTextField account;
+public abstract class PasteUI extends DialogWrapper {
 	protected JPanel mainPanel;
-	protected JPasswordField password;
+	protected JCheckBox makePublic;
 
-	public LoginUI() {
+	public PasteUI() {
 		super(true);
 	}
 }

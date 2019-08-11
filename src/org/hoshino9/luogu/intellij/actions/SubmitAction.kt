@@ -7,15 +7,19 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.PlatformDataKeys
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.openapi.vfs.VirtualFile
 import okhttp3.WebSocket
 import org.hoshino9.luogu.IllegalStatusCodeException
 import org.hoshino9.luogu.intellij.actions.ui.RecordUI
 import org.hoshino9.luogu.intellij.actions.ui.SubmitUI
+import org.hoshino9.luogu.intellij.checkLogin
 import org.hoshino9.luogu.intellij.gson
 import org.hoshino9.luogu.intellij.lg
 import org.hoshino9.luogu.intellij.tryIt
+import org.hoshino9.luogu.intellij.ui.VerifyUIImpl
+import org.hoshino9.luogu.intellij.ui.verifyCode
 import org.hoshino9.luogu.record.Record
 import org.hoshino9.luogu.record.Solution
 import org.hoshino9.luogu.record.postSolution
@@ -76,7 +80,7 @@ class RecordUIImpl(val record: Record) : RecordUI() {
 	}
 }
 
-class SubmitUIImpl(val file: VirtualFile, val editor: Editor) : SubmitUI() {
+class SubmitUIImpl(val file: VirtualFile, val editor: Editor, val project: Project) : SubmitUI() {
 	companion object {
 		val regexp = Regex("[A-Z]+[1-9][0-9]+")
 	}
@@ -144,14 +148,15 @@ class SubmitUIImpl(val file: VirtualFile, val editor: Editor) : SubmitUI() {
 		myOKAction = object : DialogWrapperAction(LuoguBundle.message("luogu.submit.submit")) {
 			override fun doAction(e: ActionEvent?) {
 				tryIt(mainPanel) {
-					if (lg.isLogged) {
-						val record = lg.loggedUser.postSolution(Solution(problemId, Solution.Language.values()[language.selectedIndex], editor.document.text))
-						JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.submit.successful", record.rid), LuoguBundle.message("luogu.successful.title"), JOptionPane.INFORMATION_MESSAGE)
-						close(DialogWrapper.OK_EXIT_CODE)
-						RecordUIImpl(record).show()
-					} else {
-						throw IllegalStatusCodeException(403, "No login")
-					}
+					lg.checkLogin()
+
+					val solution = Solution(problemId, Solution.Language.values()[language.selectedIndex], editor.document.text)
+					val record = lg.loggedUser.postSolution(solution)
+
+					JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.submit.successful", record.rid), LuoguBundle.message("luogu.successful.title"), JOptionPane.INFORMATION_MESSAGE)
+
+					close(DialogWrapper.OK_EXIT_CODE)
+					RecordUIImpl(record).show()
 				}
 			}
 		}
@@ -165,14 +170,15 @@ class SubmitUIImpl(val file: VirtualFile, val editor: Editor) : SubmitUI() {
 }
 
 class SubmitAction : AnAction() {
-	private fun doAction(file: VirtualFile, editor: Editor) {
-		SubmitUIImpl(file, editor).show()
+	private fun doAction(file: VirtualFile, editor: Editor, project: Project) {
+		SubmitUIImpl(file, editor, project).show()
 	}
 
 	override fun actionPerformed(e: AnActionEvent) {
-		val file = e.getData(PlatformDataKeys.VIRTUAL_FILE) ?: return
+		val file = e.getData(CommonDataKeys.VIRTUAL_FILE) ?: return
 		val editor = e.getData(CommonDataKeys.EDITOR) ?: return
+		val project = e.project ?: return
 
-		doAction(file, editor)
+		doAction(file, editor, project)
 	}
 }
