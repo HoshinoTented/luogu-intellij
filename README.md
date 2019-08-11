@@ -16,4 +16,7 @@ A luogu plugin on intellij platform
 # Screen shot
 ![](screenshot/0.0.3-0.gif)
 
-# Hot Key
+# Shortcuts
+Shortcut             | Action
+:-------------------:|:--------:
+Ctrl + Shift + S     | Submit Code (current file) 
