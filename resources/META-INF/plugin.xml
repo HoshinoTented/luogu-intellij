@@ -6,6 +6,10 @@
 
 	<idea-version since-build="192.5728"/>
 
+	<depends optional="true"
+			 config-file="plugin-clion.xml">com.intellij.modules.clion
+	</depends>
+
 	<extensions defaultExtensionNs="com.intellij">
 		<!-- Add your extensions here -->
 	</extensions>

@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "org.hoshino9"
-version = "0.0.2"
+version = "0.0.3"
 
 val luoguVersion = "-SNAPSHOT"
 val isCI = System.getenv("CI").isNullOrBlank().not()
