@@ -47,6 +47,14 @@
 			<add-to-group group-id="org.hoshino9.luogu.intellij.actions.Actions"
 						  anchor="last"/>
 		</action>
+
+		<action id="org.hoshino9.luogu.intellij.actions.UnlockAction"
+				class="org.hoshino9.luogu.intellij.actions.UnlockAction"
+				text="Unlock Account"
+				description="Unlock your account via two factor or password">
+			<add-to-group group-id="org.hoshino9.luogu.intellij.actions.Actions"
+						  anchor="last"/>
+		</action>
 	</actions>
 
 </idea-plugin>

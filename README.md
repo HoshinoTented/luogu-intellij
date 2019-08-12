@@ -15,9 +15,10 @@ A luogu plugin on intellij platform
 - [x] Listen record information
 - [ ] Better record UI
 - [x] Paste Board
+- [x] Two Factor Verification
 
 # Screen shot
-![](screenshot/0.0.3-0.gif)
+![](screenshot/0.0.3-1.gif)
 
 # Shortcuts
 Shortcut             | Action

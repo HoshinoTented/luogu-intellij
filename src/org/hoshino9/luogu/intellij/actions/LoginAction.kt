@@ -22,6 +22,10 @@ class LoginUIImpl(val project: Project) : LoginUI() {
 					if (code != null) {
 						lg.login(account.text, String(password.password), code)
 
+						lg.needUnlock?.let {
+							UnlockUIImpl(it).show()
+						}
+
 						val user = lg.loggedUser
 
 						JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.login.loginwith", user.spacePage.username, user.uid), LuoguBundle.message("luogu.success.title"), JOptionPane.INFORMATION_MESSAGE)
@@ -34,7 +38,6 @@ class LoginUIImpl(val project: Project) : LoginUI() {
 		setResizable(false)
 
 		init()
-
 	}
 
 	override fun createCenterPanel(): JComponent? {
