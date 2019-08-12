@@ -1,6 +1,7 @@
 # luogu-intellij
 
-![](https://img.shields.io/jetbrains/plugin/d/12846-luogu-intellij) ![](https://img.shields.io/github/license/HoshinoTented/luogu-intellij)
+[![](https://img.shields.io/jetbrains/plugin/d/12846-luogu-intellij)](https://plugins.jetbrains.com/plugin/12846-luogu-intellij)
+[![](https://img.shields.io/github/license/HoshinoTented/luogu-intellij)](LICENSE.md)
 
 CI      | Status
 --------|-------
