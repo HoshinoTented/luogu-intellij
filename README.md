@@ -9,18 +9,34 @@ CircleCI|[![CircleCI](https://circleci.com/gh/HoshinoTented/luogu-intellij.svg?s
 
 A luogu plugin on intellij platform  
 
-# Feature
+## Features
 - [x] Base: log in
 - [x] Problem: Submit code
-- [x] Listen record information
+- [x] Listen record information 
 - [ ] Better record UI
 - [x] Paste Board
 - [x] Two Factor Verification
 
-# Screen shot
+## Screen shots
 ![](screenshot/0.0.3-1.gif)
 
-# Shortcuts
+## Shortcuts
 Shortcut             | Action
 :-------------------:|:--------:
 Ctrl + Shift + S     | Submit Code (current file) 
+
+## Building and Installation
+First, you should configure JDK in proper  
+Then, run this code in terminal:  
+
+```bash
+./gradlew build
+```
+
+If you want to get a intellij plugin, please run this code:  
+
+```bash
+./gradlew shadowJar
+```
+
+There is a fatjar will be generated in directory `build/libs`  
