@@ -132,12 +132,17 @@ class SubmitUIImpl(val file: VirtualFile, val editor: Editor, val project: Proje
 			selectedIndex = Solution.Language.values().indexOf(currentLanguage)
 		}
 
-		(if (regexp.matches(file.nameWithoutExtension)) {
-			useFileName
-		} else useCustomName).isSelected = true
-
 		buttonGroup.add(useFileName)
 		buttonGroup.add(useCustomName)
+
+		(if (regexp.matches(file.nameWithoutExtension)) {
+			useFileName
+		} else useCustomName).apply {
+			isSelected = true
+			actionListeners.forEach {
+				it.actionPerformed(null)
+			}
+		}
 
 		myOKAction = object : DialogWrapperAction(LuoguBundle.message("luogu.submit.submit")) {
 			override fun doAction(e: ActionEvent?) {
