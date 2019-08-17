@@ -23,17 +23,13 @@
 		</group>
 
 		<action id="org.hoshino9.luogu.intellij.actions.LoginAction"
-				class="org.hoshino9.luogu.intellij.actions.LoginAction"
-				text="Log in to Luogu"
-				description="Log in to Luogu">
+				class="org.hoshino9.luogu.intellij.actions.LoginAction">
 			<add-to-group group-id="org.hoshino9.luogu.intellij.actions.Actions"
 						  anchor="last"/>
 		</action>
 
 		<action id="org.hoshino9.luogu.intellij.actions.SubmitAction"
-				class="org.hoshino9.luogu.intellij.actions.SubmitAction"
-				text="Submit Code"
-				description="Submit code to specified problem">
+				class="org.hoshino9.luogu.intellij.actions.SubmitAction">
 			<add-to-group group-id="org.hoshino9.luogu.intellij.actions.Actions"
 						  anchor="last"/>
 			<keyboard-shortcut first-keystroke="ctrl shift s"
@@ -41,17 +37,13 @@
 		</action>
 
 		<action id="org.hoshino9.luogu.intellij.actions.PasteAction"
-				class="org.hoshino9.luogu.intellij.actions.PasteAction"
-				text="Paste Code"
-				description="Paste code to luogu paste board">
+				class="org.hoshino9.luogu.intellij.actions.PasteAction">
 			<add-to-group group-id="org.hoshino9.luogu.intellij.actions.Actions"
 						  anchor="last"/>
 		</action>
 
 		<action id="org.hoshino9.luogu.intellij.actions.UnlockAction"
-				class="org.hoshino9.luogu.intellij.actions.UnlockAction"
-				text="Unlock Account"
-				description="Unlock your account via two factor or password">
+				class="org.hoshino9.luogu.intellij.actions.UnlockAction">
 			<add-to-group group-id="org.hoshino9.luogu.intellij.actions.Actions"
 						  anchor="last"/>
 		</action>

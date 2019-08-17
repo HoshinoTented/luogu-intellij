@@ -12,7 +12,9 @@ import java.awt.event.ActionEvent
 import javax.swing.JComponent
 import javax.swing.JOptionPane
 
-class LoginUIImpl(val project: Project) : LoginUI() {
+class LoginUIImpl(val event: AnActionEvent) : LoginUI() {
+	val project = event.project !!
+
 	init {
 		title = LuoguBundle.message("luogu.login.title")
 		myOKAction = object : DialogWrapperAction(LuoguBundle.message("luogu.login")) {
@@ -27,8 +29,11 @@ class LoginUIImpl(val project: Project) : LoginUI() {
 						}
 
 						val user = lg.loggedUser
+						val title = LuoguBundle.message("luogu.login.loginwith", user.spacePage.username, user.uid)
 
-						JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.login.loginwith", user.spacePage.username, user.uid), LuoguBundle.message("luogu.success.title"), JOptionPane.INFORMATION_MESSAGE)
+						event.presentation.text = title
+
+						JOptionPane.showMessageDialog(mainPanel, title, LuoguBundle.message("luogu.success.title"), JOptionPane.INFORMATION_MESSAGE)
 						close(DialogWrapper.OK_EXIT_CODE)
 					}
 				}
@@ -45,12 +50,19 @@ class LoginUIImpl(val project: Project) : LoginUI() {
 	}
 }
 
-class LoginAction : AnAction() {
+class LoginAction : AnAction(
+		LuoguBundle.message("luogu.login.title"),
+		LuoguBundle.message("luogu.login.description"), null
+) {
 	override fun actionPerformed(e: AnActionEvent) {
-		LoginUIImpl(e.project ?: return).show()
-	}
+		if (lg.isLogged) {
+			lg.logout()
 
-	override fun update(e: AnActionEvent) {
-		e.presentation.isEnabledAndVisible = e.project != null
+			JOptionPane.showMessageDialog(null, "Logged out!", LuoguBundle.message("luogu.success.title"), JOptionPane.INFORMATION_MESSAGE)
+			e.presentation.text = LuoguBundle.message("luogu.login.title")
+		} else {
+			e.project ?: return
+			LoginUIImpl(e).show()
+		}
 	}
 }

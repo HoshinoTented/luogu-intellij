@@ -46,7 +46,10 @@ ${editor.document.text}
 	}
 }
 
-class PasteAction : AnAction() {
+class PasteAction : AnAction(
+		LuoguBundle.message("luogu.paste.title"),
+		LuoguBundle.message("luogu.paste.description"), null
+) {
 	override fun actionPerformed(e: AnActionEvent) {
 		val editor = e.getData(CommonDataKeys.EDITOR) ?: return
 		val file = e.getData(CommonDataKeys.VIRTUAL_FILE) ?: return

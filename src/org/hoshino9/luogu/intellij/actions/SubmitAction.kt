@@ -168,7 +168,10 @@ class SubmitUIImpl(val file: VirtualFile, val editor: Editor, val project: Proje
 	}
 }
 
-class SubmitAction : AnAction() {
+class SubmitAction : AnAction(
+		LuoguBundle.message("luogu.submit.title"),
+		LuoguBundle.message("luogu.submit.description"), null
+) {
 	private fun doAction(file: VirtualFile, editor: Editor, project: Project) {
 		SubmitUIImpl(file, editor, project).show()
 	}

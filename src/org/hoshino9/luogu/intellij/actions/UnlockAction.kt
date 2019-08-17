@@ -2,7 +2,6 @@ package org.hoshino9.luogu.intellij.actions
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.ui.DialogWrapper
 import org.hoshino9.luogu.intellij.actions.ui.UnlockUI
 import org.hoshino9.luogu.intellij.lg
 import org.hoshino9.luogu.intellij.tryIt
@@ -13,7 +12,7 @@ class UnlockUIImpl(type: String) : UnlockUI() {
 	init {
 		init()
 
-		title = LuoguBundle.message("luogu.unlock.title", when (type) {
+		title = LuoguBundle.message("luogu.unlock.dialog.title", when (type) {
 			"2fa" -> "Two Factor"
 			"secret" -> "Password"
 
@@ -34,7 +33,10 @@ class UnlockUIImpl(type: String) : UnlockUI() {
 	}
 }
 
-class UnlockAction : AnAction() {
+class UnlockAction : AnAction(
+		LuoguBundle.message("luogu.unlock.title"),
+		LuoguBundle.message("luogu.unlock.description"), null
+) {
 	override fun actionPerformed(e: AnActionEvent) {
 		lg.needUnlock?.let {
 			UnlockUIImpl(it).show()
