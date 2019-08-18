@@ -105,7 +105,7 @@ class SubmitUIImpl(val file: VirtualFile, val editor: Editor, val project: Proje
 				"hs" -> Solution.Language.Haskell
 				"kt" -> Solution.Language.KotlinJVM
 				"scala" -> Solution.Language.Scala
-				"pl" -> Solution.Language.Perl5
+				"pl" -> Solution.Language.Perl
 
 				else -> Solution.Language.Auto
 			}
@@ -127,7 +127,9 @@ class SubmitUIImpl(val file: VirtualFile, val editor: Editor, val project: Proje
 		}
 
 		language.apply {
-			Solution.Language.values().forEach(::addItem)
+			Solution.Language.values().forEach { lang ->
+				addItem(lang.fullName)
+			}
 
 			selectedIndex = Solution.Language.values().indexOf(currentLanguage)
 		}

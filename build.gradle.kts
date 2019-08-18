@@ -13,7 +13,7 @@ group = "org.hoshino9"
 version = "0.0.3"
 
 
-val luoguVersion = "0922c7c7a5"
+val luoguVersion = "d21bf691c6"
 val isCI = System.getenv("CI").isNullOrBlank().not()
 fun luoguapi(module: String, version: String) = "com.github.HoshinoTented.LuoGuAPI:$module:$version"
 
