@@ -53,6 +53,7 @@ class RecordUIImpl(val record: Record) : RecordUI() {
 
 	private fun closeSocket() {
 		socket?.close(1000, null)
+		socket = null
 	}
 
 	private fun updateInfo(info: String) {
@@ -76,14 +77,18 @@ class RecordUIImpl(val record: Record) : RecordUI() {
 
 class SubmitUIImpl(val file: VirtualFile, val editor: Editor, val project: Project) : SubmitUI() {
 	companion object {
-		val regexp = Regex("[A-Z]+[1-9][0-9]+")
+		val regexp = Regex("([a-zA-Z]+)([1-9][0-9]+)")
 	}
 
 	private val buttonGroup = ButtonGroup()
 
 	private val problemId: String
 		get() {
-			return if (buttonGroup.selection == useFileName.model) file.nameWithoutExtension else {
+			return if (buttonGroup.selection == useFileName.model) file.nameWithoutExtension.let { name ->
+				regexp.matchEntire(name)?.let {
+					it.groupValues[1].toUpperCase() + it.groupValues[2]
+				} ?: name
+			} else {
 				customName.text
 			}
 		}
