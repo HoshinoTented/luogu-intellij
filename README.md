@@ -7,7 +7,11 @@ CI      | Status
 --------|-------
 CircleCI|[![CircleCI](https://circleci.com/gh/HoshinoTented/luogu-intellij.svg?style=svg)](https://circleci.com/gh/HoshinoTented/luogu-intellij)
 
-A luogu plugin on intellij platform  
+A luogu plugin on intellij platform.  
+
+## Stable Version
+No, there is no `Stable version` yet.  
+I suggest you using the development version that you can get the newest features and fix a lot of bugs. 
 
 ## Features
 - [x] Log in / Log out
@@ -26,7 +30,7 @@ Shortcut             | Action
 Ctrl + Shift + S     | Submit Code (current file) 
 
 ## Building and Installation
-First, you should configure JDK in proper  
+First, you should configure JDK in proper.  
 Then, run this code in terminal:  
 
 ```bash
@@ -39,4 +43,4 @@ If you want to get a intellij plugin, please run this code:
 ./gradlew shadowJar
 ```
 
-There is a fatjar will be generated in directory `build/libs`  
+There is a fatjar will be generated in directory `build/libs`.  
