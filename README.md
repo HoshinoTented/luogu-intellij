@@ -37,10 +37,10 @@ Then, run this code in terminal:
 ./gradlew build
 ```
 
-If you want to get a intellij plugin, please run this code:  
+If you want to get an intellij plugin, please run this code:  
 
 ```bash
 ./gradlew shadowJar
 ```
 
-There is a fatjar will be generated in directory `build/libs`.  
+There is a fatjar that will be generated in the directory `build/libs`.  
