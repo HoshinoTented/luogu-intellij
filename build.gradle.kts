@@ -27,7 +27,11 @@ sourceSets {
 }
 
 intellij {
-	version = "2019.2"
+	val ideaPath: String? by extra
+
+	if (ideaPath != null) {
+		localPath = ideaPath
+	} else version = "2019.3"
 }
 
 repositories {

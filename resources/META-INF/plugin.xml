@@ -4,7 +4,7 @@
 			url="https://github.com/HoshinoTented">Hoshino Tented
 	</vendor>
 
-	<idea-version since-build="192.5728"/>
+	<idea-version since-build="193"/>
 
 	<depends optional="true"
 			 config-file="plugin-clion.xml">com.intellij.modules.clion
