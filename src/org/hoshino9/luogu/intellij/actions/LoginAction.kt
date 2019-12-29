@@ -8,6 +8,7 @@ import org.hoshino9.luogu.intellij.actions.ui.LoginUI
 import org.hoshino9.luogu.intellij.lg
 import org.hoshino9.luogu.intellij.tryIt
 import org.hoshino9.luogu.intellij.ui.verifyCode
+import org.hoshino9.luogu.user.currentUser
 import java.awt.event.ActionEvent
 import javax.swing.JComponent
 import javax.swing.JOptionPane
@@ -28,8 +29,8 @@ class LoginUIImpl(val event: AnActionEvent) : LoginUI() {
 							UnlockUIImpl(it).show()
 						}
 
-						val user = lg.loggedUser
-						val title = LuoguBundle.message("luogu.login.loginwith", user.spacePage.username, user.uid)
+						val user = lg.currentUser.user
+						val title = LuoguBundle.message("luogu.login.loginwith", user.name, user.uid)
 
 						event.presentation.text = title
 
@@ -56,10 +57,12 @@ class LoginAction : AnAction(
 ) {
 	override fun actionPerformed(e: AnActionEvent) {
 		if (lg.isLogged) {
-			lg.logout()
+			tryIt(null) {
+				lg.logout()
 
-			JOptionPane.showMessageDialog(null, "Logged out!", LuoguBundle.message("luogu.success.title"), JOptionPane.INFORMATION_MESSAGE)
-			e.presentation.text = LuoguBundle.message("luogu.login.title")
+				JOptionPane.showMessageDialog(null, "Logged out!", LuoguBundle.message("luogu.success.title"), JOptionPane.INFORMATION_MESSAGE)
+				e.presentation.text = LuoguBundle.message("luogu.login.title")
+			}
 		} else {
 			e.project ?: return
 			LoginUIImpl(e).show()

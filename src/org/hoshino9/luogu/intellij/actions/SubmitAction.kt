@@ -8,7 +8,9 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.openapi.vfs.VirtualFile
-import okhttp3.WebSocket
+import io.ktor.client.features.websocket.ws
+import io.ktor.http.cio.websocket.*
+import kotlinx.coroutines.*
 import org.hoshino9.luogu.intellij.actions.ui.RecordUI
 import org.hoshino9.luogu.intellij.actions.ui.SubmitUI
 import org.hoshino9.luogu.intellij.checkLogin
@@ -25,10 +27,12 @@ import javax.swing.JOptionPane
 import javax.swing.JScrollPane
 
 class RecordUIImpl(val record: Record) : RecordUI() {
-	private var socket: WebSocket? = null
+	private val job: Job
 
 	init {
-		connect()
+		this.job = GlobalScope.launch {
+			connect()
+		}
 
 		scrollPane.apply {
 			horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
@@ -45,15 +49,22 @@ class RecordUIImpl(val record: Record) : RecordUI() {
 		init()
 	}
 
-	private fun connect() {
-		socket = this@RecordUIImpl.record.listen(lg) { socket, msg ->
-			if ("status_push" in msg) updateInfo(msg)
-		}
+	private fun closeSocket() {
+		job.cancel()
 	}
 
-	private fun closeSocket() {
-		socket?.close(1000, null)
-		socket = null
+	private suspend fun connect() {
+		record.listen(lg) {
+			while (isActive) {
+				val frame = incoming.receive()
+
+				if (frame is Frame.Text) {
+					val msg = frame.readText()
+
+					if ("status_push" in msg) updateInfo(msg)
+				}
+			}
+		}
 	}
 
 	private fun updateInfo(info: String) {
@@ -62,11 +73,13 @@ class RecordUIImpl(val record: Record) : RecordUI() {
 
 	override fun doOKAction() {
 		closeSocket()
+
 		super.doOKAction()
 	}
 
 	override fun doCancelAction() {
 		closeSocket()
+
 		super.doCancelAction()
 	}
 
@@ -156,8 +169,8 @@ class SubmitUIImpl(val file: VirtualFile, val editor: Editor, val project: Proje
 				tryIt(mainPanel) {
 					lg.checkLogin()
 
-					val solution = Solution(problemId, Solution.Language.values()[language.selectedIndex], editor.document.text)
-					val record = lg.loggedUser.postSolution(solution)
+					val solution = Solution(problemId, language.selectedIndex, editor.document.text)
+					val record = lg.postSolution(solution)
 
 					JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.submit.success", record.rid), LuoguBundle.message("luogu.success.title"), JOptionPane.INFORMATION_MESSAGE)
 

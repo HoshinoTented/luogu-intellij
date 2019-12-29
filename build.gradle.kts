@@ -4,16 +4,15 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
 plugins {
 	java
-	id("org.jetbrains.intellij") version "0.4.8"
-	id("com.github.johnrengelman.shadow") version "5.1.0"
-	kotlin("jvm") version "1.3.41"
+	id("org.jetbrains.intellij") version "0.4.15"
+	id("com.github.johnrengelman.shadow") version "5.2.0"
+	kotlin("jvm") version "1.3.61"
 }
 
+val luoguVersion = "0.0.8b1"
 group = "org.hoshino9"
-version = "0.0.3"
+version = "0.0.4"
 
-
-val luoguVersion = "d21bf691c6"
 val isCI = System.getenv("CI").isNullOrBlank().not()
 fun luoguapi(module: String, version: String) = "com.github.HoshinoTented.LuoGuAPI:$module:$version"
 
@@ -41,11 +40,13 @@ repositories {
 
 
 dependencies {
-	compile(kotlin("stdlib"))
-	compile(luoguapi("luogu", luoguVersion))
-	compile(luoguapi("problem", luoguVersion))
-	compile(luoguapi("record", luoguVersion))
-	compile(luoguapi("paste", luoguVersion))
+	implementation(kotlin("stdlib"))
+	implementation(luoguapi("core", luoguVersion))
+	implementation(luoguapi("problem", luoguVersion))
+	implementation(luoguapi("record", luoguVersion))
+	implementation(luoguapi("paste", luoguVersion))
+
+	implementation("org.slf4j:slf4j-simple:1.7.30")
 }
 
 tasks.withType<PatchPluginXmlTask> {

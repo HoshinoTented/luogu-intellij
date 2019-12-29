@@ -10,7 +10,7 @@ import org.hoshino9.luogu.intellij.actions.ui.PasteUI
 import org.hoshino9.luogu.intellij.checkLogin
 import org.hoshino9.luogu.intellij.lg
 import org.hoshino9.luogu.intellij.tryIt
-import org.hoshino9.luogu.paste.postPaste
+import org.hoshino9.luogu.paste.newPaste
 import java.awt.event.ActionEvent
 import javax.swing.JComponent
 import javax.swing.JOptionPane
@@ -29,7 +29,7 @@ ${editor.document.text}
 				tryIt(mainPanel) {
 					lg.checkLogin()
 
-					val id = lg.loggedUser.postPaste(documentText, makePublic.isSelected)
+					val id = lg.newPaste(documentText, makePublic.isSelected)
 					JOptionPane.showMessageDialog(mainPanel, LuoguBundle.message("luogu.paste.success", id), LuoguBundle.message("luogu.success.title"), JOptionPane.INFORMATION_MESSAGE)
 					close(DialogWrapper.OK_EXIT_CODE)
 				}

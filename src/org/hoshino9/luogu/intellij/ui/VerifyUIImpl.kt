@@ -1,6 +1,7 @@
 package org.hoshino9.luogu.intellij.ui
 
 import com.intellij.openapi.project.Project
+import kotlinx.coroutines.runBlocking
 import org.hoshino9.luogu.intellij.actions.LuoguBundle
 import org.hoshino9.luogu.intellij.lg
 import org.hoshino9.luogu.intellij.ui.ui.VerifyUI
@@ -19,7 +20,9 @@ class VerifyUIImpl(val project: Project, val code: VerifyCode) : VerifyUI() {
 	init {
 		verifyCode.addMouseListener(object : MouseListener {
 			override fun mouseClicked(e: MouseEvent?) {
-				updateVerifyCode()
+				runBlocking {
+					updateVerifyCode()
+				}
 			}
 
 			override fun mouseReleased(e: MouseEvent?) {
@@ -36,7 +39,9 @@ class VerifyUIImpl(val project: Project, val code: VerifyCode) : VerifyUI() {
 
 		})
 
-		updateVerifyCode()
+		runBlocking {
+			updateVerifyCode()
+		}
 
 		title = LuoguBundle.message("luogu.verify.title")
 		setResizable(false)
@@ -45,9 +50,9 @@ class VerifyUIImpl(val project: Project, val code: VerifyCode) : VerifyUI() {
 	}
 
 	@Synchronized
-	private fun updateVerifyCode() {
-		lg.verifyCode(verifyCodeFile.outputStream())
-		verifyCode.icon = ImageIcon(ImageIO.read(verifyCodeFile))
+	private suspend fun updateVerifyCode() {
+//		verifyCodeFile.outputStream().write()
+		verifyCode.icon = ImageIcon(lg.verifyCode())
 	}
 
 	override fun doOKAction() {
