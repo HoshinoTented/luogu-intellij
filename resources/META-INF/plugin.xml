@@ -7,8 +7,7 @@
 	<idea-version since-build="193"/>
 
 	<depends optional="true"
-			 config-file="plugin-clion.xml">com.intellij.modules.clion
-	</depends>
+			 config-file="plugin-clion.xml">com.intellij.modules.clion</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
 		<!-- Add your extensions here -->
